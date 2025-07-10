@@ -3,6 +3,7 @@ package br.com.sistema.service.impl;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new User(
                 usuario.getLogin(),
                 usuario.getSenha(),
-                Collections.singleton(usuario.getNivelAcesso())
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + usuario.getNivelAcesso().name()))
         );
     }
 }
