@@ -58,3 +58,21 @@ teste para confirmar se dar erro*/
 INSERT INTO cliente(nome, cpf, dados) VALUES("kaká", "12345678910", "primeiro cliente criado"),
 ("Vegeta", "12345678911", "Princípe dos Saiyajins.");
 SELECT * FROM cliente;
+
+INSERT INTO usuario (login, senha, nivel_acesso)
+VALUES (
+  'admin',
+  '$2a$10$dEHbEVFRbdiF5ahPU4E4WOdwCvXmK9UAlh4V4P2H3uviY9syvTYaC',
+  'ADMIN'
+);
+
+INSERT INTO usuario (login, senha, nivel_acesso)
+VALUES (
+  'padrao',
+  '$2a$10$6/Wmv5ToWGW8oh/mi1nh0OQVPoaps8NRvDl7H6ZlKGNBM3GmeJptq',
+  'PADRAO'
+);
+
+select * from usuario;
+
+

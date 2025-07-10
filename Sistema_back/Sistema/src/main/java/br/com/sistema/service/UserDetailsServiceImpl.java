@@ -26,7 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new User(
                 usuario.getLogin(),
                 usuario.getSenha(),
-                Collections.singleton(usuario.getNivelAcesso()) // enum já implementa GrantedAuthority
+                Collections.singleton(usuario.getNivelAcesso())
         );
     }
 }
+

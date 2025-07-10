@@ -32,9 +32,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authorizationHeader = request.getHeader("Authorization");
+    	String authorizationHeader = request.getHeader("Authorization");
+    	System.out.println("🔒 Filtro JWT - URI: " + request.getRequestURI());
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+    	if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.replace("Bearer ", "");
             String username = jwtTokenService.getLoginDoToken(token);
 
@@ -53,6 +54,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+    
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.startsWith("/auth/login"); // ignora o filtro para login
     }
 }
 
