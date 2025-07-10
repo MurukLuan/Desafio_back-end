@@ -44,7 +44,7 @@ public class Cliente {
     private Endereco endereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Email> emails;
+    private List<EmailCliente> emails;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Telefone> telefones;

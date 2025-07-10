@@ -25,7 +25,7 @@ public class ClienteDTO {
 
     private EnderecoDTO endereco;
 
-    private List<EmailDTO> emails;
+    private List<EmailClienteDTO> emails;
 
     private List<TelefoneDTO> telefones;
 }

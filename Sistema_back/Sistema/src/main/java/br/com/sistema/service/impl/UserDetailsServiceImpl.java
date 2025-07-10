@@ -1,4 +1,4 @@
-package br.com.sistema.service;
+package br.com.sistema.service.impl;
 
 import java.util.Collections;
 

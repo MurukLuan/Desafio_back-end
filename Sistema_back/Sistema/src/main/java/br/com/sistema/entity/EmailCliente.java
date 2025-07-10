@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "email")
-public class Email {
+public class EmailCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
