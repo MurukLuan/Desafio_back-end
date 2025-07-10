@@ -1,10 +1,11 @@
-package br.com.sistema.security;
+package br.com.sistema.service;
 
-import br.com.sistema.entity.Usuario;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,10 +19,10 @@ public class JwtTokenService {
     @Value("${jwt.expiration}")
     private Long jwtExpirationMs;
 
-    public String gerarToken(Usuario usuario) {
+    public String gerarToken(UserDetails userDetails) {
         return Jwts.builder()
-                .setSubject(usuario.getLogin())
-                .claim("role", usuario.getNivelAcesso().name())
+                .setSubject(userDetails.getUsername())
+                .claim("role", userDetails.getAuthorities().toString()) // ou use como string
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)

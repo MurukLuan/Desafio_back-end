@@ -1,6 +1,21 @@
 package br.com.sistema.enums;
 
-public enum NivelAcesso {
-    ADMIN,
-    PADRAO
+
+import org.springframework.security.core.GrantedAuthority;
+
+public enum NivelAcesso implements GrantedAuthority {
+    ADMIN("admin"),
+    PADRAO("padrao");
+
+    private final String role;
+
+    NivelAcesso(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.role;
+    }
 }
+
