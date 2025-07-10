@@ -32,4 +32,3 @@ Para executar o projeto corretamente, é necessário configurar **variáveis de 
 ```cmd
 set DB_USERNAME=seu_usuario
 set DB_PASSWORD=sua_senha
-
