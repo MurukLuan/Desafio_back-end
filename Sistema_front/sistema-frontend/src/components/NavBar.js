@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthContext';
+import { useAuth } from '../auth/AuthContext';
 
 const Navbar = () => {
-  const { logout, isAuthenticated } = useContext(AuthContext);
+  const { logoutUsuario, isAuthenticated } = useAuth();
 
   return (
-    <nav>
+    <nav style={{ padding: '1rem', background: '#f2f2f2' }}>
       <Link to="/">Home</Link>
       {isAuthenticated && (
         <>
+          {' | '}
           <Link to="/clientes">Clientes</Link>
-          <button onClick={logout}>Sair</button>
+          {' | '}
+          <button onClick={logoutUsuario}>Sair</button>
         </>
       )}
     </nav>

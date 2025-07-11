@@ -35,21 +35,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
     	String authorizationHeader = request.getHeader("Authorization");
-    	log.info("🔒 Filtro JWT - URI: {}", request.getRequestURI());
+    	log.info("Filtro JWT - URI: {}", request.getRequestURI());
 
 
     	if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.replace("Bearer ", "");
             String username = jwtTokenService.getLoginDoToken(token);
             
-            log.debug("📨 Token recebido: {}", token);
-            log.debug("👤 Usuário extraído do token: {}", username);
+            log.debug("Token recebido: {}", token);
+            log.debug("Usuário extraído do token: {}", username);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 
-                log.info("✅ Autenticando usuário: {}", userDetails.getUsername());
-                log.info("🧾 Roles: {}", userDetails.getAuthorities());
+                log.info("Autenticando usuário: {}", userDetails.getUsername());
+                log.info("Roles: {}", userDetails.getAuthorities());
 
                 if (jwtTokenService.tokenValido(token)) {
                     UsernamePasswordAuthenticationToken authenticationToken =
@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }else {
-                	 log.warn("❌ Token inválido para usuário {}", username);
+                	 log.warn("Token inválido para usuário {}", username);
                 }
             }
         }

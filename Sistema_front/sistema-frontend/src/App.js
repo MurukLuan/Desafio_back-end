@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './auth/AuthContext';
 import Login from './pages/Login';
 import Home from './pages/Home';
-import ClienteForm from './pages/ClienteForm';
-import ClienteList from './pages/ClienteList';
+//import ClienteForm from './pages/ClienteForm';
+//import ClienteList from './pages/ClienteList';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -24,8 +24,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+          
           <Route
-            path="/clientes"
+            /* path="/clientes"
             element={
               <ProtectedRoute>
                 <ClienteList />
@@ -39,7 +40,7 @@ function App() {
                 <ClienteForm />
               </ProtectedRoute>
             }
-          />
+          *//>
         </Routes>
       </Router>
     </AuthProvider>
