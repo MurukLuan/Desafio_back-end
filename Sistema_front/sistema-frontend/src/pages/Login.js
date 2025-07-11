@@ -22,7 +22,7 @@ const Login = () => {
 
       const token = response.data.token;
       loginUsuario(token);
-      navigate('/home');
+      navigate('/');
     } catch (err) {
       setErro('Credenciais inválidas. Tente novamente.');
     }
