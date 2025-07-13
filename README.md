@@ -1,4 +1,4 @@
-# Projeto Sistema (Beck end) - Sistema de Gerenciamento
+# Projeto Sistema (completo) - Sistema de Gerenciamento
 
 Este projeto foi desenvolvido como parte de um desafio técnico para vaga **Sênior Backend**, com foco em boas práticas, segurança e arquitetura limpa. 
 Utiliza **Java 8**, **Spring Boot**, **Spring Security**, **JWT** e **MySQL**.
@@ -180,6 +180,48 @@ Body (JSON):
 7. Deletar Cliente
 Endpoint: DELETE /api/clientes/{id}
 Exemplo: DELETE /api/clientes/1
+
+-------------------------------------------------------------------------------------
+
+# Sistema de Cadastro de Clientes — Frontend
+
+Este é o frontend do sistema de cadastro de clientes, desenvolvido em ReactJS com autenticação via JWT, controle de acesso por perfil e integração com uma API backend.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- [React.js](https://reactjs.org/) (v18+)
+- [React Router DOM](https://reactrouter.com/)
+- [Axios](https://axios-http.com/)
+- [JWT](https://jwt.io/)
+- [Context API](https://reactjs.org/docs/context.html)
+- [CSS Modules / Estilização inline]
+- [Fetch API (ViaCEP)](https://viacep.com.br/)
+- [Node.js](https://nodejs.org/) (v16.20)
+
+---
+
+## 🧩 Pré-requisitos
+
+- [Git](https://git-scm.com/)
+- [Node.js v16.20](https://nodejs.org/download/release/v16.20.0/)
+- [NPM](https://www.npmjs.com/) (gerenciador de pacotes — já vem com o Node.js)
+
+---
+
+## 🛠️ Instalação do Node.js (v16.20)
+
+### Windows
+1. Acesse: https://nodejs.org/download/release/v16.20.0/
+2. Baixe o instalador `.msi` compatível com seu sistema.
+3. Instale normalmente.
+
+### macOS/Linux (via nvm - recomendado)
+```bash
+nvm install 16.20.0
+nvm use 16.20.0
+```
 
 
 Espero que tenha conseguido executar a API e testar. Qualquer dúvida poderá me contactar:
