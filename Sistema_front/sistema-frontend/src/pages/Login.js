@@ -20,7 +20,7 @@ const Login = () => {
         senha,
       });
 
-      console.log('Resposta da API:', response.data);
+      
       const token = response.data.token;
 
       
