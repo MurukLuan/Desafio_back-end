@@ -19,7 +19,7 @@ Utiliza **Java 8**, **Spring Boot**, **Spring Security**, **JWT** e **MySQL**.
 ## Banco de Dados
 
 - O projeto utiliza **MySQL** como banco de dados.
-- O **script completo de criação do banco** está localizado na **raiz do projeto**, na **branch `backend`**.
+- O **script completo de criação do banco** está localizado na **raiz do projeto**.
 - Todas as tabelas, chaves estrangeiras, constraints e validações estão prontas para uso, incluindo também o insert com um hash válido 
 para as senhas e usuários solicitados ("admin: 123qwe!@#", "padrao: 123qwe").
 
