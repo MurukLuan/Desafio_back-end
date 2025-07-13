@@ -48,6 +48,16 @@ public class EnderecoDTO {
                 .uf(dto.getUf())
                 .build();
     }
+    
+    public void atualizarCom(EnderecoDTO dto) {
+        this.cep = dto.getCep();
+        this.logradouro = dto.getLogradouro();
+        this.complemento = dto.getComplemento();
+        this.bairro = dto.getBairro();
+        this.cidade = dto.getCidade();
+        this.uf = dto.getUf();
+    }
+
 }
 
 

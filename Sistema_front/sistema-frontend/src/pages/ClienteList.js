@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { listarClientes, deletarCliente } from "../api/ClienteService";
 import { useNavigate } from "react-router-dom";
-import { formatCPF, formatPhone } from "../utils/Formatters";
+import { formatCPF, formatPhone, formatCEP } from "../utils/Formatters";
+import Container from "../components/Container";
 
 const ClienteList = () => {
   const [clientes, setClientes] = useState([]);
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const clientesPorPagina = 5;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +22,8 @@ const ClienteList = () => {
       console.error("Erro ao buscar clientes:", error);
     }
   };
+
+  console.log(clientes)
 
   const handleEditar = (id) => {
     navigate(`/clientes/${id}/editar`);
@@ -35,13 +40,22 @@ const ClienteList = () => {
     }
   };
 
+  const indexUltimoCliente = paginaAtual * clientesPorPagina;
+  const indexPrimeiroCliente = indexUltimoCliente - clientesPorPagina;
+  const clientesPagina = clientes.slice(indexPrimeiroCliente, indexUltimoCliente);
+
+  const totalPaginas = Math.ceil(clientes.length / clientesPorPagina);
+  const paginacao = Array.from({ length: totalPaginas }, (_, i) => i + 1);
+  
+
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Lista de Clientes</h2>
-      {clientes.length === 0 ? (
+    <Container>
+    <div style={{ padding: "1rem", maxWidth: "700px", margin: "0 auto" }}>
+      <h2 style={{ textAlign: "center" }}>Lista de Clientes</h2>
+      {clientesPagina.length === 0 ? (
         <p>Nenhum cliente encontrado.</p>
       ) : (
-        clientes.map((cliente) => (
+        clientesPagina.map((cliente) => (
           <div
             key={cliente.id}
             style={{
@@ -49,27 +63,32 @@ const ClienteList = () => {
               borderRadius: 8,
               padding: "1rem",
               marginBottom: "1rem",
+              backgroundColor: "#f9f9f9"
             }}
           >
             <h3>{cliente.nome}</h3>
-            <p>
-              <strong>CPF:</strong> {formatCPF(cliente.cpf)}
-            </p>
-            {cliente.email && (
-              <p>
-                <strong>Email:</strong> {cliente.email}
-              </p>
+            <p><strong>CPF:</strong> {formatCPF(cliente.cpf)}</p>
+            {cliente.dados && <p><strong>Dados:</strong> {cliente.dados}</p>}
+
+            {cliente.emails && cliente.emails.length > 0 && (
+              <div>
+                <strong>Emails:</strong>
+                <ul>
+                  {cliente.emails.map((email, idx) => (
+                    <li key={idx}>{email.email}</li>
+                  ))}
+                </ul>
+              </div>
             )}
 
             {cliente.telefones && cliente.telefones.length > 0 && (
               <div>
                 <strong>Telefones:</strong>
                 <ul>
-                  {cliente.telefones?.map((tel, index) => (
-                    <p key={index}>
-                      <strong>{tel.tipo}:</strong>{" "}
-                      {formatPhone(tel.numero, tel.tipo)}
-                    </p>
+                  {cliente.telefones.map((tel, index) => (
+                    <li key={index}>
+                      <strong>{tel.tipo}:</strong> {formatPhone(tel.numero, tel.tipo)}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -81,27 +100,48 @@ const ClienteList = () => {
                 <p>
                   {cliente.endereco.logradouro}, {cliente.endereco.complemento}
                   <br />
-                  {cliente.endereco.bairro}, {cliente.endereco.cidade} -{" "}
-                  {cliente.endereco.uf}
+                  {cliente.endereco.bairro}, {cliente.endereco.cidade} - {cliente.endereco.uf}
                   <br />
-                  CEP: {cliente.endereco.cep}
+                  CEP: {formatCEP(cliente.endereco.cep)}
                 </p>
               </div>
             )}
 
             <div style={{ marginTop: "1rem" }}>
               <button
-                onClick={() => handleEditar(cliente.id)}
+                onClick={() => handleEditar(cliente.idCliente)}
                 style={{ marginRight: "1rem" }}
               >
                 Editar
               </button>
-              <button onClick={() => handleExcluir(cliente.id)}>Excluir</button>
+              <button onClick={() => handleExcluir(cliente.idCliente)}>Excluir</button>
             </div>
           </div>
         ))
       )}
+
+      {paginacao.length > 1 && (
+        <div style={{ textAlign: "center", marginTop: "1rem" }}>
+          {paginacao.map((num) => (
+            <button
+              key={num}
+              onClick={() => setPaginaAtual(num)}
+              style={{
+                margin: "0 5px",
+                backgroundColor: num === paginaAtual ? "#007bff" : "#eee",
+                color: num === paginaAtual ? "#fff" : "#000",
+                border: "none",
+                padding: "5px 10px",
+                borderRadius: "5px"
+              }}
+            >
+              {num}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
+    </Container>
   );
 };
 

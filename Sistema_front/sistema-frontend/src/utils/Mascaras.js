@@ -2,12 +2,14 @@
 //formaters é apenas para o estatico.
 
 export const formatarCPF = (valor) => {
-  return valor
-    .replace(/\D/g, '') // remove não números
+  const somenteNumeros = valor.replace(/\D/g, '').slice(0, 11); // limita a 11 dígitos
+
+  return somenteNumeros
     .replace(/(\d{3})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 };
+
 
 export const removerMascaraCPF = (valor) => valor.replace(/\D/g, '');
 

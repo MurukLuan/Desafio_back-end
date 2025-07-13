@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const api = axios.create({
   baseURL: 'http://localhost:8080',
 });
 
-// Adiciona o token JWT em todas as requisições
+// Interceptor de requisição: adiciona token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -14,6 +15,18 @@ api.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+// Interceptor de resposta: trata erros
+api.interceptors.response.use(
+  response => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login'; // redireciona para login
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default api;

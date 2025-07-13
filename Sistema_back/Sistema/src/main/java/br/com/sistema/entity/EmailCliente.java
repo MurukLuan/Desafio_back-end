@@ -26,7 +26,7 @@ public class EmailCliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmail;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @ManyToOne

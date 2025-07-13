@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Container from '../components/Container';
+import { useAuth } from '../auth/AuthContext';
 
 const Home = () => {
+  const { role } = useAuth();
   return (
+    <Container>
     <div style={{ padding: '2rem' }}>
       <h1>Bem-vindo ao Sistema</h1>
       <p>Você está logado com sucesso!</p>
@@ -13,12 +17,15 @@ const Home = () => {
           <Link to="/clientes">
             <button style={{ padding: '0.5rem 1rem' }}>📋 Listar Clientes</button>
           </Link>
-          <Link to="/clientes/novo">
-            <button style={{ padding: '0.5rem 1rem' }}>➕ Cadastrar Novo Cliente</button>
-          </Link>
+          {role === 'ADMIN' && (
+              <Link to="/clientes/novo">
+                <button style={{ padding: '0.5rem 1rem' }}>➕ Cadastrar Novo Cliente</button>
+              </Link>
+            )}
         </div>
       </div>
     </div>
+    </Container>
   );
 };
 

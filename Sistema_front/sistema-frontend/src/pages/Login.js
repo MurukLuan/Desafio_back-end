@@ -21,7 +21,12 @@ const Login = () => {
       });
 
       const token = response.data.token;
-      loginUsuario(token);
+
+      
+      const role = response.data.role; 
+      loginUsuario(token, role);
+
+      //loginUsuario(token);
       navigate('/');
     } catch (err) {
       setErro('Credenciais inválidas. Tente novamente.');

@@ -9,6 +9,7 @@ import {
   formatarTelefone,
   removerMascaraTelefone,
 } from '../utils/Mascaras';
+import Container from '../components/Container'; 
 
 const ClienteForm = () => {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ const ClienteForm = () => {
     setForm({
       nome: '',
       cpf: '',
+      dados: '',
       email: [''],
       cep: '',
       logradouro: '',
@@ -106,7 +108,7 @@ const ClienteForm = () => {
     const payload = {
       nome: form.nome,
       cpf: removerMascaraCPF(form.cpf),
-      dados: 'Dados complementares',
+      dados: form.dados,
       endereco: {
         cep: removerMascaraCEP(form.cep),
         logradouro: form.logradouro,
@@ -148,13 +150,18 @@ const ClienteForm = () => {
   };
 
   return (
+    
     <div style={{ backgroundColor: '#e0f2ff', minHeight: '100vh', paddingTop: '40px' }}>
-      <form onSubmit={handleSubmit} style={{ maxWidth: '500px', margin: '0 auto' }}>
+      <Container>
+      <form onSubmit={handleSubmit} style={{ maxWidth: '700px', margin: '0 auto' }}>
         <h2 style={{ textAlign: 'center' }}>Cadastrar Cliente</h2>
 
         <input type="text" name="nome" value={form.nome} onChange={handleChange} placeholder="Nome" required style={{ width: '100%', padding: '10px', margin: '5px 0', borderRadius: '8px' }} />
 
         <input type="text" name="cpf" value={form.cpf} onChange={(e) => handleFormattedChange(e, formatarCPF, 'cpf')} placeholder="CPF" required style={{ width: '100%', padding: '10px', margin: '5px 0', borderRadius: '8px' }} />
+
+        <input type="text" name="dados" value={form.dados} onChange={handleChange} placeholder="dados: cliente filial xpto... cliente recorrente" required style={{ width: '100%', padding: '10px', margin: '5px 0', borderRadius: '8px' }} />
+
 
         {form.email.map((email, index) => (
           <div key={index} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -231,6 +238,7 @@ const ClienteForm = () => {
           </button>
         </div>
       </form>
+      </Container>
     </div>
   );
 };

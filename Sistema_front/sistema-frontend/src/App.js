@@ -1,10 +1,16 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './auth/AuthContext';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Navbar from './components/NavBar';
-import ClienteForm from './pages/ClienteForm';
-import ClienteList from './pages/ClienteList';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, useAuth } from "./auth/AuthContext";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Navbar from "./components/NavBar";
+import ClienteForm from "./pages/ClienteForm";
+import ClienteList from "./pages/ClienteList";
+import ClienteEdit from "./pages/ClienteEdit";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -26,7 +32,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-           
+
           <Route
             path="/clientes"
             element={
@@ -43,7 +49,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
+          <Route
+            path="/clientes/:id/editar"
+            element={
+              <ProtectedRoute>
+                <ClienteEdit />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>
