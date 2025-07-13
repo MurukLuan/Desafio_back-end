@@ -7,11 +7,13 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(localStorage.getItem('role'));
 
   const loginUsuario = (token, role) => {
+    const roleSemPrefixo = role.replace("ROLE_", "").toUpperCase(); 
+
     localStorage.setItem('token', token);
-    localStorage.setItem('role', role);
+    localStorage.setItem('role', roleSemPrefixo);
     localStorage.setItem('loginTime', Date.now().toString());
     setToken(token);
-    setRole(role);
+    setRole(roleSemPrefixo);
   };
 
   const logoutUsuario = () => {

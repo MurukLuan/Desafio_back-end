@@ -79,4 +79,10 @@ select * from cliente;
 select * from endereco;
 select * from telefone;
 select * from email;
+SHOW CREATE TABLE email;
+
+
+desc email;
+
+ALTER TABLE email DROP INDEX email;
 

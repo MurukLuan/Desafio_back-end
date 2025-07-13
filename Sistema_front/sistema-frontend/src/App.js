@@ -11,6 +11,7 @@ import Navbar from "./components/NavBar";
 import ClienteForm from "./pages/ClienteForm";
 import ClienteList from "./pages/ClienteList";
 import ClienteEdit from "./pages/ClienteEdit";
+import AdminRoute from "./components/AdminRoute";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -24,6 +25,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
+          
           <Route
             path="/"
             element={
@@ -41,20 +43,22 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Essas duas rotas abaixo são só para ADMIN */}
           <Route
             path="/clientes/novo"
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <ClienteForm />
-              </ProtectedRoute>
+              </AdminRoute>
             }
           />
           <Route
             path="/clientes/:id/editar"
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <ClienteEdit />
-              </ProtectedRoute>
+              </AdminRoute>
             }
           />
         </Routes>
