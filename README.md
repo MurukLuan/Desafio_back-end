@@ -3,6 +3,9 @@
 Este projeto foi desenvolvido como parte de um desafio técnico para vaga **Sênior Backend**, com foco em boas práticas, segurança e arquitetura limpa. 
 Utiliza **Java 8**, **Spring Boot**, **Spring Security**, **JWT** e **MySQL**.
 
+Esse projeto pode ser rodado apenas o back-end como também Back-end e Front-end, basta seguir os passos deste Readme.md
+O projeto completo está na branch projeto-completo.
+
 ---
 
 ## Tecnologias Utilizadas
