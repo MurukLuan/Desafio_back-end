@@ -1,0 +1,85 @@
+package br.com.sistema.controller;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.sistema.dto.ClienteRequest;
+import br.com.sistema.dto.ClienteResponse;
+import br.com.sistema.service.ClienteService;
+
+@WebMvcTest(ClienteController.class)
+class ClienteControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private ClienteService clienteService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Test
+    void deveCriarClienteERetornar201() throws Exception {
+        ClienteRequest request = new ClienteRequest();
+        request.setNome("Maria");
+        request.setCpf("12345678900");
+        request.setDados("Cliente Teste");
+
+        ClienteResponse response = new ClienteResponse();
+        response.setIdCliente(1L);
+        response.setNome("Maria");
+        response.setCpf("12345678900");
+
+        Mockito.when(clienteService.criarCliente(any())).thenReturn(response);
+
+        mockMvc.perform(post("/api/clientes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.nome").value("Maria"))
+                .andExpect(jsonPath("$.cpf").value("12345678900"));
+    }
+
+    @Test
+    void deveRetornarClientePorId() throws Exception {
+        ClienteResponse response = new ClienteResponse();
+        response.setIdCliente(1L);
+        response.setNome("Carlos");
+
+        Mockito.when(clienteService.buscarPorId(1L)).thenReturn(response);
+
+        mockMvc.perform(get("/api/clientes/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nome").value("Carlos"));
+    }
+
+    @Test
+    void deveRetornar404SeClienteNaoExistir() throws Exception {
+        Mockito.when(clienteService.buscarPorId(999L))
+                .thenThrow(new RuntimeException("Cliente não encontrado"));
+
+        mockMvc.perform(get("/api/clientes/999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void deveDeletarCliente() throws Exception {
+        mockMvc.perform(delete("/api/clientes/1"))
+                .andExpect(status().isNoContent());
+    }
+}

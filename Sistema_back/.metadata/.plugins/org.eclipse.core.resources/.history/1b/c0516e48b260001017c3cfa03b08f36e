@@ -1,0 +1,57 @@
+package br.com.sistema.service.impl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import br.com.sistema.dto.ClienteRequest;
+import br.com.sistema.dto.ClienteResponse;
+import br.com.sistema.entity.Cliente;
+import br.com.sistema.repository.ClienteRepository;
+
+class ClienteServiceImplTest {
+
+    @InjectMocks
+    private ClienteServiceImpl service;
+
+    @Mock
+    private ClienteRepository repo;
+
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void deveAtualizarClienteExistente() {
+        ClienteRequest dto = new ClienteRequest();
+        dto.setNome("Fulano");
+        dto.setCpf("12345678901");
+        dto.setDados("Teste");
+
+        Cliente existing = new Cliente();
+        existing.setIdCliente(1L);
+        existing.setNome("Antigo");
+        existing.setCpf("00000000000");
+        existing.setDados("");
+
+        when(repo.findById(1L)).thenReturn(Optional.of(existing));
+        when(repo.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        ClienteResponse resp = service.atualizarCliente(1L, dto);
+
+        assertEquals("Fulano", resp.getNome());
+        assertEquals("12345678901", resp.getCpf());
+        assertEquals("Teste", resp.getDados());
+        verify(repo).save(existing);
+    }
+}
