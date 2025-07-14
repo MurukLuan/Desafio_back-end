@@ -18,6 +18,9 @@ O projeto completo está na branch projeto-completo.
 - Lombok
 - MySQL
 - Maven
+- JUnit 5  
+- Mockito  
+- Swagger / OpenAPI 3 (SpringDoc)
 
 ## Banco de Dados
 
@@ -83,6 +86,28 @@ Configure as variáveis de ambiente
 No Eclipse ou IntelliJ, execute a classe SistemaApplication.java
 
 O projeto rodará em: http://localhost:8080
+
+# Documentação da API - Swagger
+A documentação interativa da API está disponível via Swagger UI:
+
+Acesse: http://localhost:8080/swagger-ui.html
+
+A documentação é gerada automaticamente via SpringDoc OpenAPI 3. Todos os endpoints estão anotados nos controllers.
+
+# Testes Automatizados
+Foram criados testes unitários para os principais serviços e controllers utilizando JUnit 5 e Mockito.
+
+Como executar os testes:
+Via terminal (na raiz do projeto):
+
+mvn test
+Ou pelo Eclipse/IDE:
+
+Clique com o botão direito na classe ou pacote de teste
+
+Selecione Run As > JUnit Test (lembre de configurar as variaveis de ambiente também)
+
+Os testes cobrem os métodos do ClienteServiceImpl e ClienteController, incluindo criação, busca, atualização e exclusão de clientes.
 
 ## Segurança e Autenticação
 O sistema utiliza Spring Security com JWT para autenticação.
